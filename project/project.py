@@ -50,3 +50,26 @@ while True:
 
     # Adatbázis kapcsolat lezárása
     conn.close()
+    # Adatok exportálása CSV fájlba
+    with open('exported_data.csv', 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        
+        # Fejléc hozzáadása
+        csv_writer.writerow(["ID", "Dátum", "Hőmérséklet (°C)", "Páratartalom (%)"])
+
+        # Adatok CSV-be írása
+        csv_writer.writerows(records)
+
+    # CSV fájl bezárása
+    csv_file.close()
+
+    # Adatok beolvasása a CSV fájlból és automatikusan be is záródik a kapcsolat
+    with open('exported_data.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        next(csv_reader)  # Ugrás a fejléc fölé
+        data = list(csv_reader)
+
+    # Adatok kinyerése az oszlopokból
+    dates = [row[1] for row in data]
+    temperatures = [float(row[2]) for row in data]
+    humidities = [float(row[3]) for row in data]
