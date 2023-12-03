@@ -1,2 +1,4 @@
 # GKLB_INTM020_Mikroelektromechanika
-Teszt
+A projekmunkára vonatkozó beadandók találhatók itt.
+Dokumentációk mappa- tartalmazza a kért dokumentációkap
+Project mappa- tartalmazza a beadandó programkódot
