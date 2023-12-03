@@ -27,3 +27,26 @@ while True:
                 paratartalom REAL
             )
         ''')
+
+    # Mérési adatok kiolvasása
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    now = datetime.now() #Dátum alapértelmezett módon
+    formatted_date= now.strftime("%Y-%m-%d %H:%M:%S") #Dátum formázása é-h-n ó:p:mp módon
+    now=formatted_date
+
+    # Adatok adatbázisba helyezése
+    if humidity is not None and temperature is not None:
+        cursor.execute("INSERT INTO meresek (datum, homerseklet, paratartalom) VALUES (?, ?, ?)", (now, temperature, humidity))
+        conn.commit()
+    else:
+        print('Szenzorolvasási hiba')
+
+    # Adatok kiírása a képernyőre
+    cursor.execute("SELECT * FROM meresek")
+    records = cursor.fetchall()
+    for record in records:
+        id, datum, homerseklet, paratartalom = record
+        print(f"ID: {id}, Dátum: {datum}, Hőmérséklet: {homerseklet:.1f} °C, Páratartalom: {paratartalom:.1f} %")
+
+    # Adatbázis kapcsolat lezárása
+    conn.close()
