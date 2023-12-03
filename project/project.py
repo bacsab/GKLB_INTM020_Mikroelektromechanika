@@ -73,3 +73,21 @@ while True:
     dates = [row[1] for row in data]
     temperatures = [float(row[2]) for row in data]
     humidities = [float(row[3]) for row in data]
+    # Vonaldiagramm létrehozása
+    plt.figure(figsize=(12, 6))
+    plt.plot(dates, temperatures, label='Hőmérséklet (°C)', marker='o', linestyle='-', color='b')
+    plt.plot(dates, humidities, label='Páratartalom (%)', marker='o', linestyle='-', color='g')
+
+    # Grafikon beállítások, X tengely forgatása
+    plt.title('Hőmérséklet és Páratartalom')
+    plt.xlabel('Dátum')
+    plt.xticks(rotation=45)
+    plt.ylabel('Érték')
+    plt.legend()
+
+    # Grafikon megjelenítése
+    plt.tight_layout()
+    plt.show(block=False)  # Itt a block=False lehetővé teszi a folyamatos futást
+    plt.pause(30)  # 30 másodperc szünet
+
+    plt.close()  # Bezárja a grafikont
